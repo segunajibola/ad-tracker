@@ -24,7 +24,7 @@ Challenge
 1. Set up a property called conversionRate to hold the percentage of 
    clicks that resulted in someone subscribing. Set conversionRate 
    equals to conversions/clicks * 100.
-2. Create a method called getAdvertisingChannelHtml wich returns HTML 
+2. Create a method called getAdvertisingChannelHtml which returns HTML 
    using the template string provided.
 3. Set up an instance of AdvertisingChannel for each channel and make 
    them render their html to the page. I have grabbed the divs for
@@ -47,8 +47,18 @@ class AdvertisingChannel {
 
         this.conversionRate = this.conversions/this.clicks * 100.
     }
+
+    getAdvertisingChannelHtml() {
+        const {site, adViews, clicks, conversions, conversionRate} = this
+        return `
+        <div class="site-name"> ${site} </div>
+        <div>Views: ${adViews} </div>
+        <div>Clicks: ${clicks} </div>
+        <div>Conversions: ${conversions} </div>
+        <div>Conv. Rate: <span class="highlight"> ${conversionRate.toFixed(1)} %</span></div>`
+    }
 }
 
-document.getElementById('fb').innerHTML
-document.getElementById('twit').innerHTML 
-document.getElementById('insta').innerHTML
+document.getElementById('fb').innerHTML = new AdvertisingChannel(adData.facebook).getAdvertisingChannelHtml()
+document.getElementById('twit').innerHTML = new AdvertisingChannel(adData.twitter).getAdvertisingChannelHtml()
+document.getElementById('insta').innerHTML = new AdvertisingChannel(adData.instagram).getAdvertisingChannelHtml()
